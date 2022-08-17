@@ -1,4 +1,4 @@
-// This is a function to sum all the number between the given numbers(inclusive both numbers);
+// This is a function to sum all the number between the given numbers(inclusive both numbers) / Exercise on theodinproject;
 
 const sumAll = function (number, ...numbers) {
 	
