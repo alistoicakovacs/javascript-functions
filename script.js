@@ -22,4 +22,3 @@ const sumAll = function (number, ...numbers) {
 	return sum; 
  }
 
-console.log(sumAll(-1,5))
