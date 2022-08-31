@@ -1,3 +1,5 @@
+"use strict";
+// For THEODINPROJECT -  Project given on the website
 // This is a function to sum all the number between the given numbers(inclusive both numbers) / Exercise on theodinproject;
 
 // const sumAll = function (number, ...numbers) {
@@ -24,3 +26,16 @@
 
 ////////////////////////////////
 // OOP - Object Oriented Programming
+
+const Person = function (firstName, birthYear) {
+	this.firstName = firstName;
+	this.birthYear = birthYear;
+	console.log(this);
+};
+
+new Person("Ali", 1992);
+// Steps
+// 1. A new empty object is created
+// 2. The function is called, this = {} - the this keyword is the empty object created in step 1.
+// 3. The newly created object {} is linket to prototype
+// 4. The function automatically returns the empty object from the beginning {}
