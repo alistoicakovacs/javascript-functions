@@ -31,11 +31,45 @@ const Person = function (firstName, birthYear) {
 	this.firstName = firstName;
 	this.birthYear = birthYear;
 	console.log(this);
+
+	// Never create a method inside a constructor function!!!
+	// this.calcAge = function () {
+	// 	console.log(2022 - this.birthYear);
+	// };
 };
 
-new Person("Ali", 1992);
+const ali = new Person("Ali", 1992);
 // Steps
 // 1. A new empty object is created
 // 2. The function is called, this = {} - the this keyword is the empty object created in step 1.
 // 3. The newly created object {} is linket to prototype
 // 4. The function automatically returns the empty object from the beginning {}
+
+const jay = "";
+const matilda = new Person("Matilda", 2012);
+const jack = new Person("Jack", 1975);
+
+console.log(ali instanceof Person); // true
+console.log(jay instanceof Person); // false
+
+///////////////////////////////
+// Prototypes
+console.log(Person.prototype); // returns the constructor, that already has the calcAge function in it
+
+Person.prototype.calcAge = function () {
+	console.log(2022 - this.birthYear);
+};
+
+ali.calcAge();
+matilda.calcAge();
+jack.calcAge();
+
+// The this keyword is set to the object that is calling the method
+
+console.log(Person.prototype.isPrototypeOf(ali)); // true
+// this is the way of checking of this is the prototype of another object
+// Prototype = Prototype of Linked Objects //
+
+Person.prototype.species = "Homo Sapiens";
+
+console.log(ali.species, matilda.species); // Returns Homo Sapiens - the species can be found now in the prototype section of the object
