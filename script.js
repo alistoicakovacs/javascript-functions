@@ -30,7 +30,7 @@
 const Person = function (firstName, birthYear) {
 	this.firstName = firstName;
 	this.birthYear = birthYear;
-	console.log(this);
+	// console.log(this);
 
 	// Never create a method inside a constructor function!!!
 	// this.calcAge = function () {
@@ -49,12 +49,12 @@ const jay = "";
 const matilda = new Person("Matilda", 2012);
 const jack = new Person("Jack", 1975);
 
-console.log(ali instanceof Person); // true
-console.log(jay instanceof Person); // false
+// console.log(ali instanceof Person); // true
+// console.log(jay instanceof Person); // false
 
 ///////////////////////////////
 // Prototypes
-console.log(Person.prototype); // returns the constructor, that already has the calcAge function in it
+// console.log(Person.prototype); // returns the constructor, that already has the calcAge function in it
 
 Person.prototype.calcAge = function () {
 	console.log(2022 - this.birthYear);
@@ -66,10 +66,98 @@ jack.calcAge();
 
 // The this keyword is set to the object that is calling the method
 
-console.log(Person.prototype.isPrototypeOf(ali)); // true
+// console.log(Person.prototype.isPrototypeOf(ali)); // true
 // this is the way of checking of this is the prototype of another object
 // Prototype = Prototype of Linked Objects //
 
 Person.prototype.species = "Homo Sapiens";
 
-console.log(ali.species, matilda.species); // Returns Homo Sapiens - the species can be found now in the prototype section of the object
+// console.log(ali.species, matilda.species); // Returns Homo Sapiens - the species can be found now in the prototype section of the object
+/////////////////////////
+// Prototypal Inheritance on Built-in Objects
+// Object.prototype (top of prototype chain)
+// console.log(ali.__proto__.__proto__.__proto__);
+
+// console.dir(Person.prototype.constructor); // f() Person (firstName, birthYear)
+
+const arr = [3, 6, 1, 2, 3, 4, 5, 8]; // --> new Array === [];
+console.log(arr.__proto__); // -> all the methods
+
+// adding a method to the Array prototype, in order that any array can use it
+Array.prototype.unique = function () {
+	return [...new Set(this)];
+};
+console.log(arr.unique());
+
+const h1 = document.querySelector("h1");
+
+//////////////////////////////
+// Coding Challenge #1 - OOP
+const Car = function (make, speed) {
+	this.make = make;
+	this.speed = speed;
+};
+
+Car.prototype.accelerate = function () {
+	this.speed += 10;
+	console.log(`${this.make} is going at ${this.speed} km/h`);
+};
+
+Car.prototype.brake = function () {
+	this.speed -= 10;
+	console.log(`${this.make} is going at ${this.speed} km/h`);
+};
+
+const bmw = new Car("BMW", 120);
+const mercedes = new Car("Mercedes", 95);
+
+// console.log(bmw);
+// bmw.accelerate();
+// bmw.accelerate();
+// bmw.accelerate();
+// bmw.brake();
+// bmw.brake();
+// bmw.brake();
+// mercedes.accelerate();
+// mercedes.accelerate();
+// mercedes.accelerate();
+// mercedes.brake();
+// mercedes.brake();
+// mercedes.brake();
+
+/////////////////////////////////////////////
+// ES6 Classes
+
+// class expression
+// const PersonCl = class {};
+
+// class declaration
+class PersonCl {
+	constructor(name, birthYear) {
+		this.name = name;
+		this.birthYear = birthYear;
+	} // <- constructor function - needs to be called constructor
+	// Methods will be added to .prototype property
+	calcAge() {
+		console.log(2037 - this.birthYear);
+	}
+
+	// this is also possible - adding the method inside the class directly
+	// greet () {
+	// 	console.log(`Hey ${this.name}`)
+	// }
+}
+
+const jessica = new PersonCl("Jessica", 1992);
+console.log(jessica);
+jessica.calcAge(); // 45
+
+PersonCl.prototype.greet = function () {
+	console.log(`Hey ${this.name}`);
+};
+
+jessica.greet(); // " Hey Jessica "
+
+// 1. Classes are not hoisted
+// 2. Classes are first-class citizens --> we can pass them into functions and then return them from functions
+// 3. The body of a class is always executed in strict mode
