@@ -1,4 +1,4 @@
-# javascript-functions
+# Javascript Functions
 
 - exercise files 
 
