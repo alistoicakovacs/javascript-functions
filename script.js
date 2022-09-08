@@ -133,24 +133,49 @@ const mercedes = new Car("Mercedes", 95);
 
 // class declaration
 class PersonCl {
-	constructor(name, birthYear) {
+	constructor(fullName, birthYear) {
 		this.name = name;
 		this.birthYear = birthYear;
 	} // <- constructor function - needs to be called constructor
+
+	// Instance methods
 	// Methods will be added to .prototype property
 	calcAge() {
 		console.log(2037 - this.birthYear);
 	}
 
+	get age() {
+		return 2037 - this.birthYear;
+	}
 	// this is also possible - adding the method inside the class directly
 	// greet () {
 	// 	console.log(`Hey ${this.name}`)
 	// }
+
+	// Set a property that already exists
+	set fullName(name) {
+		console.log(name);
+
+		if (name.includes(" ")) this._fullName = name;
+		else alert(`${name} is not a full name`);
+	}
+
+	get fullName() {
+		return this._fullName;
+	}
+
+	// Static methods
+	static hey() {
+		console.log(`Hey there 😊`);
+		console.log(this);
+	}
 }
 
-const jessica = new PersonCl("Jessica", 1992);
+const jessica = new PersonCl("Jessica Davis", 1992);
 console.log(jessica);
+
 jessica.calcAge(); // 45
+console.log(jessica.age); // 45
 
 PersonCl.prototype.greet = function () {
 	console.log(`Hey ${this.name}`);
@@ -161,3 +186,47 @@ jessica.greet(); // " Hey Jessica "
 // 1. Classes are not hoisted
 // 2. Classes are first-class citizens --> we can pass them into functions and then return them from functions
 // 3. The body of a class is always executed in strict mode
+
+////////////////////////////////////////////////
+
+// Setters and Getters
+
+const walter = new PersonCl("Walter", 1965);
+
+console.log(walter);
+PersonCl.hey();
+
+const account = {
+	owner: "Ali",
+	movements: [200, 300, 120, 520, 300],
+
+	// Getter
+	get latest() {
+		return this.movements.slice(-1).pop();
+	},
+
+	// Setter
+	// Any setter method has to have exactly one parameter
+	set latest(mov) {
+		this.movements.push(mov);
+	},
+};
+
+console.log(account.latest); // 300
+
+console.log(account.movements); // Array + the 50 added above
+
+////////////////////////////////////////////
+// Static methods
+
+// Static class methods are defined on the class itself.
+// You cannot call a static method on an Object, only on an object class.
+
+// Points to remember:
+// - The static keyword is used to declare a static method.
+// - The static method can be  of any name.
+// - A class can contain more than one static method.
+// - If we declare more than one static method with a similar name, the JavaScript will always invoke the last one.
+// - The static method can be used to create utility functions.
+// - We can use the this keyword to call a static method within another static method.
+// - We cannot use the this keyword directly to call a static method within a non-static method. In such case, we can call the static method either using the class name or as the property of the constructor.
